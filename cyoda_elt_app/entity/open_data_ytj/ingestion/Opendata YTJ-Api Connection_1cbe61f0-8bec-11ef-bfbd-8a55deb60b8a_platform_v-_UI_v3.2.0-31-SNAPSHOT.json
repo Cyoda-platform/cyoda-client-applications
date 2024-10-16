@@ -1,0 +1,261 @@
+{
+  "@bean": "com.cyoda.plugins.datasource.dtos.DataSourceConfigsContainerDto",
+  "dataSources": [
+    {
+      "id": "1cbe6722-8bec-11ef-bfbd-8a55deb60b8a",
+      "name": "Opendata YTJ-Api Connection_1cbe61f0-8bec-11ef-bfbd-8a55deb60b8a",
+      "lastUpdated": 1729112362942,
+      "description": "",
+      "connections": [
+        {
+          "@bean": "com.cyoda.plugins.datasource.dtos.connection.HttpConnectionDetailsDto",
+          "name": "Opendata YTJ-Api Connection",
+          "baseUrl": "https://avoindata.prh.fi/opendata-ytj-api/v3",
+          "headers": {},
+          "authType": "NONE",
+          "authConfig": {
+            "name": "",
+            "authOperationConfigs": [],
+            "numOfRetries": 1,
+            "cacheConfig": {
+              "ttl": 0,
+              "persistCache": false
+            }
+          }
+        }
+      ],
+      "endpoints": [
+        {
+          "@bean": "com.cyoda.plugins.datasource.dtos.endpoint.HttpEndpointDto",
+          "consumerConfig": {
+            "consumerType": "COBI_MAPPER",
+            "configId": "17bb56a0-8bf0-11ef-8db6-e25ac2e17e78"
+          },
+          "chainings": [],
+          "operation": "GetCompanies",
+          "cache": {
+            "parameters": [],
+            "ttl": 0
+          },
+          "connectionIndex": 0,
+          "type": "test",
+          "query": "/companies",
+          "method": "GET",
+          "parameters": [
+            {
+              "name": "name",
+              "defaultValue": "",
+              "secure": false,
+              "required": false,
+              "template": false,
+              "templateValue": "",
+              "excludeFromCacheKey": false,
+              "type": "REQUEST_PARAM",
+              "optionValues": []
+            }
+          ],
+          "bodyTemplate": "",
+          "connectionTimeout": 300,
+          "readWriteTimeout": 300
+        },
+        {
+          "@bean": "com.cyoda.plugins.datasource.dtos.endpoint.HttpEndpointDto",
+          "consumerConfig": {
+            "consumerType": "COBI_MAPPER",
+            "configId": "7e93e7d0-58d7-11ef-82bb-1e5f513defed"
+          },
+          "chainings": [],
+          "operation": "GetDescription",
+          "cache": {
+            "parameters": [],
+            "ttl": 0
+          },
+          "connectionIndex": 0,
+          "type": "test",
+          "query": "/description",
+          "method": "GET",
+          "parameters": [
+            {
+              "name": "code",
+              "defaultValue": "",
+              "secure": false,
+              "required": true,
+              "template": false,
+              "templateValue": "",
+              "excludeFromCacheKey": false,
+              "type": "REQUEST_PARAM",
+              "optionValues": []
+            },
+            {
+              "name": "lang",
+              "defaultValue": "",
+              "secure": false,
+              "required": true,
+              "template": false,
+              "templateValue": "",
+              "excludeFromCacheKey": false,
+              "type": "REQUEST_PARAM",
+              "optionValues": []
+            }
+          ],
+          "bodyTemplate": "",
+          "connectionTimeout": 300,
+          "readWriteTimeout": 300
+        },
+        {
+          "@bean": "com.cyoda.plugins.datasource.dtos.endpoint.HttpEndpointDto",
+          "consumerConfig": {
+            "consumerType": "COBI_MAPPER",
+            "configId": "7e93e7d0-58d7-11ef-82bb-1e5f513defed"
+          },
+          "chainings": [],
+          "operation": "GetPostCodes",
+          "cache": {
+            "parameters": [],
+            "ttl": 0
+          },
+          "connectionIndex": 0,
+          "type": "test",
+          "query": "/post_codes",
+          "method": "GET",
+          "parameters": [
+            {
+              "name": "lang",
+              "defaultValue": "en",
+              "secure": false,
+              "required": true,
+              "template": false,
+              "templateValue": "",
+              "excludeFromCacheKey": false,
+              "type": "REQUEST_PARAM",
+              "optionValues": []
+            }
+          ],
+          "bodyTemplate": "",
+          "connectionTimeout": 300,
+          "readWriteTimeout": 300
+        }
+      ],
+      "active": true
+    }
+  ],
+  "chainings": [],
+  "mappings": [
+    {
+      "id": "17bb56a0-8bf0-11ef-8db6-e25ac2e17e78",
+      "name": "Opendata YTJ",
+      "lastUpdated": 1729105596761,
+      "dataType": "JSON",
+      "description": "",
+      "entityMappings": [
+        {
+          "id": {
+            "id": "178b1ee0-8bf0-11ef-8db6-e25ac2e17e78"
+          },
+          "name": "opendata",
+          "entityClass": "open_data_ytj.1000",
+          "entityRelationConfigs": [
+            {
+              "srcRelativeRootPath": "root:/"
+            }
+          ],
+          "columns": [
+            {
+              "srcColumnPath": "companies/*/businessId/value",
+              "dstCyodaColumnPath": "companies.[*].businessId.value",
+              "dstCyodaColumnPathType": "java.lang.String",
+              "dstCollectionElementSetModes": [],
+              "transformer": {
+                "type": "COMPOSITE",
+                "children": [
+                  {
+                    "type": "SINGLE",
+                    "transformerKey": "com.cyoda.plugins.mapping.core.parser.valuetransformers.SourceObjectValueTransformer$ToString",
+                    "parameters": []
+                  },
+                  {
+                    "type": "SINGLE",
+                    "transformerKey": "com.cyoda.plugins.mapping.core.parser.valuetransformers.StringValueTransformer$Trim",
+                    "parameters": []
+                  }
+                ]
+              }
+            },
+            {
+              "srcColumnPath": "totalResults",
+              "dstCyodaColumnPath": "totalResults",
+              "dstCyodaColumnPathType": "java.lang.Integer",
+              "dstCollectionElementSetModes": [],
+              "transformer": {
+                "type": "COMPOSITE",
+                "children": [
+                  {
+                    "type": "SINGLE",
+                    "transformerKey": "com.cyoda.plugins.mapping.core.parser.valuetransformers.SourceObjectValueTransformer$ToInt",
+                    "parameters": []
+                  }
+                ]
+              }
+            }
+          ],
+          "functionalMappings": [],
+          "columnPathsForUniqueCheck": [],
+          "metadata": [],
+          "cobiCoreMetadata": [],
+          "script": {
+            "body": "var target = entity.modelAccessor;\ntarget.totalResults = input.totalResults;\n\nvar ArrayList = Java.type(\"java.util.ArrayList\");\nvar companies = new ArrayList();\n\nif (input.companies) {\n    for (var i = 0; i < input.companies.length; i++) {\n        var company = {\n            businessId: {\n                value: input.companies[i].businessId.value,\n                registrationDate: input.companies[i].businessId.registrationDate,\n                source: input.companies[i].businessId.source\n            },\n            euId: input.companies[i].euId ? {\n                value: input.companies[i].euId.value,\n                source: input.companies[i].euId.source\n            } : null,\n            mainBusinessLine: {\n                type: input.companies[i].mainBusinessLine.type,\n                typeCodeSet: input.companies[i].mainBusinessLine.typeCodeSet,\n                registrationDate: input.companies[i].mainBusinessLine.registrationDate,\n                source: input.companies[i].mainBusinessLine.source\n            },\n            tradeRegisterStatus: input.companies[i].tradeRegisterStatus,\n            status: input.companies[i].status,\n            registrationDate: input.companies[i].registrationDate,\n            lastModified: input.companies[i].lastModified,\n            endDate: input.companies[i].endDate,\n            names: new ArrayList(),\n            companyForms: new ArrayList(),\n            registeredEntries: new ArrayList(),\n            addresses: new ArrayList(),\n            companySituations: new ArrayList()\n        };\n\n        // Map names\n        // if (input.companies[i].names) {\n        //     for (var j = 0; j < input.companies[i].names.length; j++) {\n        //         var name = {\n        //             name: input.companies[i].names[j].name,\n        //             type: input.companies[i].names[j].type,\n        //             registrationDate: input.companies[i].names[j].registrationDate,\n        //             version: input.companies[i].names[j].version,\n        //             source: input.companies[i].names[j].source,\n        //             endDate: input.companies[i].names[j].endDate\n        //         };\n        //         company.names.add(name);\n        //     }\n        // }\n\n        // // Map companyForms\n        // if (input.companies[i].companyForms) {\n        //     for (var j = 0; j < input.companies[i].companyForms.length; j++) {\n        //         var companyForm = {\n        //             type: input.companies[i].companyForms[j].type,\n        //             version: input.companies[i].companyForms[j].version,\n        //             source: input.companies[i].companyForms[j].source,\n        //             registrationDate: input.companies[i].companyForms[j].registrationDate,\n        //             endDate: input.companies[i].companyForms[j].endDate,\n        //             descriptions: new ArrayList()\n        //         };\n\n        //         if (input.companies[i].companyForms[j].descriptions) {\n        //             for (var k = 0; k < input.companies[i].companyForms[j].descriptions.length; k++) {\n        //                 var description = {\n        //                     languageCode: input.companies[i].companyForms[j].descriptions[k].languageCode,\n        //                     description: input.companies[i].companyForms[j].descriptions[k].description\n        //                 };\n        //                 companyForm.descriptions.add(description);\n        //             }\n        //         }\n        //         company.companyForms.add(companyForm);\n        //     }\n        // }\n\n        // // Map registeredEntries\n        // if (input.companies[i].registeredEntries) {\n        //     for (var j = 0; j < input.companies[i].registeredEntries.length; j++) {\n        //         var registeredEntry = {\n        //             type: input.companies[i].registeredEntries[j].type,\n        //             registrationDate: input.companies[i].registeredEntries[j].registrationDate,\n        //             register: input.companies[i].registeredEntries[j].register,\n        //             authority: input.companies[i].registeredEntries[j].authority,\n        //             endDate: input.companies[i].registeredEntries[j].endDate,\n        //             descriptions: new ArrayList()\n        //         };\n\n        //         if (input.companies[i].registeredEntries[j].descriptions) {\n        //             for (var k = 0; k < input.companies[i].registeredEntries[j].descriptions.length; k++) {\n        //                 var description = {\n        //                     languageCode: input.companies[i].registeredEntries[j].descriptions[k].languageCode,\n        //                     description: input.companies[i].registeredEntries[j].descriptions[k].description\n        //                 };\n        //                 registeredEntry.descriptions.add(description);\n        //             }\n        //         }\n        //         company.registeredEntries.add(registeredEntry);\n        //     }\n        // }\n\n        // // Map addresses\n        // if (input.companies[i].addresses) {\n        //     for (var j = 0; j < input.companies[i].addresses.length; j++) {\n        //         var address = {\n        //             type: input.companies[i].addresses[j].type,\n        //             street: input.companies[i].addresses[j].street,\n        //             postCode: input.companies[i].addresses[j].postCode,\n        //             postOfficeBox: input.companies[i].addresses[j].postOfficeBox,\n        //             buildingNumber: input.companies[i].addresses[j].buildingNumber,\n        //             entrance: input.companies[i].addresses[j].entrance,\n        //             apartmentNumber: input.companies[i].addresses[j].apartmentNumber,\n        //             apartmentIdSuffix: input.companies[i].addresses[j].apartmentIdSuffix,\n        //             co: input.companies[i].addresses[j].co,\n        //             registrationDate: input.companies[i].addresses[j].registrationDate,\n        //             source: input.companies[i].addresses[j].source,\n        //             country: input.companies[i].addresses[j].country,\n        //             freeAddressLine: input.companies[i].addresses[j].freeAddressLine,\n        //             postOffices: new ArrayList()\n        //         };\n\n        //         if (input.companies[i].addresses[j].postOffices) {\n        //             for (var k = 0; k < input.companies[i].addresses[j].postOffices.length; k++) {\n        //                 var postOffice = {\n        //                     city: input.companies[i].addresses[j].postOffices[k].city,\n        //                     languageCode: input.companies[i].addresses[j].postOffices[k].languageCode,\n        //                     municipalityCode: input.companies[i].addresses[j].postOffices[k].municipalityCode\n        //                 };\n        //                 address.postOffices.add(postOffice);\n        //             }\n        //         }\n        //         company.addresses.add(address);\n        //     }\n        // }\n\n        // // Map companySituations\n        // if (input.companies[i].companySituations) {\n        //     for (var j = 0; j < input.companies[i].companySituations.length; j++) {\n        //         var companySituation = {\n        //             type: input.companies[i].companySituations[j].type,\n        //             registrationDate: input.companies[i].companySituations[j].registrationDate,\n        //             source: input.companies[i].companySituations[j].source\n        //         };\n        //         company.companySituations.add(companySituation);\n        //     }\n        // }\n\n        companies.add(company);\n    }\n}\n\ntarget.companies = companies;",
+            "inputSrcPaths": [],
+            "inputMetaPaths": [],
+            "reusableScripts": []
+          },
+          "entityFilter": {
+            "@bean": "com.cyoda.core.conditions.GroupCondition",
+            "operator": "AND",
+            "conditions": []
+          }
+        }
+      ],
+      "sampleContent": "{\"totalResults\":8,\"companies\":[{\"businessId\":{\"value\":\"0195876-3\",\"registrationDate\":\"1978-06-16\",\"source\":\"3\"},\"euId\":{\"value\":\"FIFPRO.0195876-3\",\"source\":\"1\"},\"names\":[{\"name\":\"Oy IBM Finland Ab\",\"type\":\"1\",\"registrationDate\":\"2013-01-21\",\"version\":1,\"source\":\"1\"},{\"name\":\"Oy International Business Machines Ab\",\"type\":\"1\",\"registrationDate\":\"1946-02-22\",\"endDate\":\"2013-01-20\",\"version\":2,\"source\":\"1\"},{\"name\":\"Lotus Development Finland\",\"type\":\"3\",\"registrationDate\":\"2004-11-04\",\"version\":1,\"source\":\"1\"},{\"name\":\"International Business Machines\",\"type\":\"3\",\"registrationDate\":\"2013-01-21\",\"version\":1,\"source\":\"1\"},{\"name\":\"IBM Suomi\",\"type\":\"3\",\"registrationDate\":\"2013-01-21\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"63110\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Data processing, hosting and related activities\"},{\"languageCode\":\"2\",\"description\":\"Databehandling, hosting o.d.\"},{\"languageCode\":\"1\",\"description\":\"Tietojenkäsittely, palvelintilan vuokraus ja niihin liittyvät palvelut\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2009-06-22\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1937-02-02\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1978-06-16\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1995-03-01\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"1994-06-01\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"82\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"För överlåtelse av nyttjanderätten till en fastighet\"},{\"languageCode\":\"1\",\"description\":\"Kiinteistön käyttöoikeuden luovuttamisesta\"},{\"languageCode\":\"3\",\"description\":\"VAT-obliged for the transfer of rights to use immovable property\"}],\"registrationDate\":\"1994-06-01\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1950-01-01\",\"register\":\"7\",\"authority\":\"1\"},{\"type\":\"32\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2001-10-16\",\"endDate\":\"2013-12-31\",\"register\":\"8\",\"authority\":\"1\"}],\"addresses\":[{\"type\":2,\"street\":\"\",\"postCode\":\"00101\",\"postOffices\":[{\"city\":\"HELSINGFORS\",\"languageCode\":\"2\",\"municipalityCode\":\"091\"},{\"city\":\"HELSINKI\",\"languageCode\":\"1\",\"municipalityCode\":\"091\"}],\"postOfficeBox\":\"265\",\"buildingNumber\":\"\",\"entrance\":\"\",\"apartmentNumber\":\"\",\"apartmentIdSuffix\":\"\",\"co\":\"\",\"registrationDate\":\"1992-01-02\",\"source\":\"0\"}],\"tradeRegisterStatus\":\"1\",\"status\":\"2\",\"registrationDate\":\"1937-02-02\",\"lastModified\":\"2024-10-10 14:33:55\"},{\"businessId\":{\"value\":\"0881509-5\",\"registrationDate\":\"1992-04-01\",\"source\":\"3\"},\"names\":[{\"name\":\"ITS Businesslink Oy\",\"type\":\"1\",\"registrationDate\":\"1993-05-12\",\"endDate\":\"2004-12-30\",\"version\":1,\"source\":\"1\"},{\"name\":\"IBMC International Business and Marketing Consulting Oy\",\"type\":\"1\",\"registrationDate\":\"1992-06-03\",\"endDate\":\"1993-05-11\",\"version\":2,\"source\":\"1\"},{\"name\":\"IBMC Trading\",\"type\":\"3\",\"registrationDate\":\"1992-06-03\",\"endDate\":\"2004-12-30\",\"version\":1,\"source\":\"1\"},{\"name\":\"ITS Businesslink Ltd\",\"type\":\"2\",\"registrationDate\":\"1993-05-12\",\"endDate\":\"2004-12-30\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"74\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Andra företagstjänster\"},{\"languageCode\":\"1\",\"description\":\"Muu liike-elämää palveleva toiminta\"},{\"languageCode\":\"3\",\"description\":\"Other business activities\"}],\"typeCodeSet\":\"TOIMI2\",\"registrationDate\":\"2001-12-31\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"1992-06-03\",\"endDate\":\"2004-12-30\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1992-06-03\",\"endDate\":\"2004-12-29\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"4\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Ceased\"},{\"languageCode\":\"1\",\"description\":\"Lakannut\"},{\"languageCode\":\"2\",\"description\":\"Upphört\"}],\"registrationDate\":\"2004-12-30\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1992-04-01\",\"endDate\":\"2004-12-30\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1995-03-01\",\"endDate\":\"1996-02-29\",\"register\":\"5\",\"authority\":\"1\"}],\"addresses\":[],\"tradeRegisterStatus\":\"4\",\"status\":\"2\",\"registrationDate\":\"1992-06-03\",\"endDate\":\"2004-12-30\"},{\"businessId\":{\"value\":\"1478178-4\",\"registrationDate\":\"1998-07-21\",\"source\":\"3\"},\"euId\":{\"value\":\"FIFPRO.1478178-4\",\"source\":\"1\"},\"names\":[{\"name\":\"Monitec Oy\",\"type\":\"1\",\"registrationDate\":\"2010-12-15\",\"version\":1,\"source\":\"1\"},{\"name\":\"Jibmeri Oy\",\"type\":\"1\",\"registrationDate\":\"1998-07-10\",\"endDate\":\"2010-12-14\",\"version\":2,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"45311\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Moottoriajoneuvojen osien ja varusteiden tukkukauppa (pl. renkaat)\"},{\"languageCode\":\"2\",\"description\":\"Partihandel med reservdelar och tillbehör till motorfordon (exkl. däck)\"},{\"languageCode\":\"3\",\"description\":\"Wholesale of motor vehicle parts and accessories (excl. tyres)\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2016-03-01\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"1998-07-10\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1998-07-10\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1998-07-21\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"1998-07-15\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"1998-07-01\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2013-10-01\",\"endDate\":\"2018-12-31\",\"register\":\"7\",\"authority\":\"1\"}],\"addresses\":[{\"type\":2,\"street\":\"Lähteentie\",\"postCode\":\"24910\",\"postOffices\":[{\"city\":\"HALIKKO AS\",\"languageCode\":\"1\",\"municipalityCode\":\"734\"},{\"city\":\"HALIKKO AS\",\"languageCode\":\"2\",\"municipalityCode\":\"734\"}],\"buildingNumber\":\"3\",\"registrationDate\":\"2010-12-16\",\"source\":\"0\"}],\"tradeRegisterStatus\":\"1\",\"status\":\"2\",\"registrationDate\":\"1998-07-10\",\"lastModified\":\"2024-02-05 12:38:18\"},{\"businessId\":{\"value\":\"1757014-9\",\"registrationDate\":\"2002-03-28\",\"source\":\"3\"},\"names\":[{\"name\":\"IBM Business Consulting Services Oy\",\"type\":\"1\",\"registrationDate\":\"2002-10-18\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"},{\"name\":\"PwC Consulting Oy\",\"type\":\"1\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2002-10-17\",\"version\":2,\"source\":\"1\"},{\"name\":\"Monday\",\"type\":\"3\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"},{\"name\":\"Monday Group\",\"type\":\"3\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"},{\"name\":\"Monday Services\",\"type\":\"3\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"},{\"name\":\"Monday Business\",\"type\":\"3\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"74140\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Business and management consultancy activities\"},{\"languageCode\":\"2\",\"description\":\"Konsultverks avs. företagsledning\"},{\"languageCode\":\"1\",\"description\":\"Liikkeenjohdon konsultointi\"}],\"typeCodeSet\":\"TOIMI2\",\"registrationDate\":\"2002-03-27\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"0\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Oregistrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisteröimätön\"},{\"languageCode\":\"3\",\"description\":\"Unregistered\"}],\"registrationDate\":\"2002-03-28\",\"endDate\":\"2002-07-21\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-28\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"4\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Ceased\"},{\"languageCode\":\"1\",\"description\":\"Lakannut\"},{\"languageCode\":\"2\",\"description\":\"Upphört\"}],\"registrationDate\":\"2004-11-29\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2002-08-13\",\"endDate\":\"2004-11-11\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2002-07-22\",\"endDate\":\"2003-03-31\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"2002-07-22\",\"endDate\":\"2002-12-31\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2002-08-01\",\"endDate\":\"2003-01-31\",\"register\":\"7\",\"authority\":\"1\"}],\"addresses\":[],\"tradeRegisterStatus\":\"4\",\"status\":\"2\",\"registrationDate\":\"2002-07-22\",\"endDate\":\"2004-11-29\",\"lastModified\":\"2018-02-28 09:15:14\"},{\"businessId\":{\"value\":\"2170493-9\",\"registrationDate\":\"2008-01-21\",\"source\":\"3\"},\"names\":[{\"name\":\"Tsaibma Oy\",\"type\":\"1\",\"registrationDate\":\"2008-01-28\",\"endDate\":\"2019-12-16\",\"version\":1,\"source\":\"1\"},{\"name\":\"AV-LAPPI\",\"type\":\"3\",\"registrationDate\":\"2008-06-30\",\"endDate\":\"2019-12-16\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"59120\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Efterproduktion av film, video och TV-program\"},{\"languageCode\":\"1\",\"description\":\"Elokuvien, video- ja televisio-ohjelmien jälkituotanto\"},{\"languageCode\":\"3\",\"description\":\"Motion picture, video and television programme post-production activities\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2008-01-09\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"2008-01-28\",\"endDate\":\"2019-12-16\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"0\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Oregistrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisteröimätön\"},{\"languageCode\":\"3\",\"description\":\"Unregistered\"}],\"registrationDate\":\"2008-01-21\",\"endDate\":\"2008-01-27\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2008-01-28\",\"endDate\":\"2019-12-15\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"4\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Ceased\"},{\"languageCode\":\"1\",\"description\":\"Lakannut\"},{\"languageCode\":\"2\",\"description\":\"Upphört\"}],\"registrationDate\":\"2019-12-16\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2008-02-06\",\"endDate\":\"2019-12-16\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2013-07-01\",\"endDate\":\"2016-02-15\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"2008-01-17\",\"endDate\":\"2016-01-31\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2008-02-01\",\"endDate\":\"2011-05-31\",\"register\":\"7\",\"authority\":\"1\"}],\"addresses\":[],\"tradeRegisterStatus\":\"4\",\"status\":\"2\",\"registrationDate\":\"2008-01-28\",\"endDate\":\"2019-12-16\",\"lastModified\":\"2024-04-18 12:50:13\"},{\"businessId\":{\"value\":\"2284267-1\",\"registrationDate\":\"2009-08-31\",\"source\":\"3\"},\"euId\":{\"value\":\"FIFPRO.2284267-1\",\"source\":\"1\"},\"names\":[{\"name\":\"Vaibmu Oy\",\"type\":\"1\",\"registrationDate\":\"2009-09-11\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"70220\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Business and other management consultancy activities\"},{\"languageCode\":\"2\",\"description\":\"Konsultverksamhet avseende företags organisation\"},{\"languageCode\":\"1\",\"description\":\"Muu liikkeenjohdon konsultointi\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2012-02-06\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"2009-09-11\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"0\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Oregistrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisteröimätön\"},{\"languageCode\":\"3\",\"description\":\"Unregistered\"}],\"registrationDate\":\"2009-08-31\",\"endDate\":\"2009-09-10\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2009-09-11\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2009-09-11\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2009-09-01\",\"endDate\":\"2017-08-31\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"2009-09-01\",\"endDate\":\"2017-08-31\",\"register\":\"6\",\"authority\":\"1\"}],\"addresses\":[{\"type\":2,\"postOffices\":[],\"country\":\"ES\",\"freeAddressLine\":\"Clara_Llamas Calle_de_Torrebeleña,_15 28035 Madrid\",\"registrationDate\":\"2023-02-25\",\"source\":\"0\"}],\"tradeRegisterStatus\":\"1\",\"status\":\"2\",\"registrationDate\":\"2009-09-11\",\"lastModified\":\"2024-07-04 07:36:52\"},{\"businessId\":{\"value\":\"2753438-7\",\"registrationDate\":\"2016-03-21\",\"source\":\"3\"},\"euId\":{\"value\":\"FIFPRO.2753438-7\",\"source\":\"1\"},\"names\":[{\"name\":\"IBM Global Financing Finland Oy\",\"type\":\"1\",\"registrationDate\":\"2016-04-19\",\"version\":1,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"66190\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Andra stödtjänster till finansiella tjänster utom försäkring och pensionsfondsverksamhet\"},{\"languageCode\":\"1\",\"description\":\"Muu rahoitusta palveleva toiminta (pl. vakuutus- ja eläkevakuutustoiminta)\"},{\"languageCode\":\"3\",\"description\":\"Other activities auxiliary to financial services, except insurance and pension funding\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2016-02-17\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"2016-04-19\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[{\"type\":\"SELTILA\",\"registrationDate\":\"2024-06-01\",\"source\":\"1\"}],\"registeredEntries\":[{\"type\":\"0\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Oregistrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisteröimätön\"},{\"languageCode\":\"3\",\"description\":\"Unregistered\"}],\"registrationDate\":\"2016-03-21\",\"endDate\":\"2016-04-18\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2016-04-19\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2016-06-17\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2016-07-01\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"2016-07-01\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2016-08-01\",\"register\":\"7\",\"authority\":\"1\"}],\"addresses\":[{\"type\":1,\"street\":\"Siltasaarenkatu\",\"postCode\":\"00530\",\"postOffices\":[{\"city\":\"HELSINGFORS\",\"languageCode\":\"2\",\"municipalityCode\":\"091\"},{\"city\":\"HELSINKI\",\"languageCode\":\"1\",\"municipalityCode\":\"091\"}],\"buildingNumber\":\"22\",\"entrance\":\"\",\"apartmentNumber\":\"\",\"apartmentIdSuffix\":\"\",\"co\":\"\",\"registrationDate\":\"2023-07-11\",\"source\":\"0\"},{\"type\":2,\"street\":\"\",\"postCode\":\"00101\",\"postOffices\":[{\"city\":\"HELSINGFORS\",\"languageCode\":\"2\",\"municipalityCode\":\"091\"},{\"city\":\"HELSINKI\",\"languageCode\":\"1\",\"municipalityCode\":\"091\"}],\"postOfficeBox\":\"265\",\"buildingNumber\":\"\",\"entrance\":\"\",\"apartmentNumber\":\"\",\"apartmentIdSuffix\":\"\",\"co\":\"\",\"registrationDate\":\"2016-03-21\",\"source\":\"0\"}],\"tradeRegisterStatus\":\"1\",\"status\":\"2\",\"registrationDate\":\"2016-04-19\",\"lastModified\":\"2024-07-04 14:25:46\"},{\"businessId\":{\"value\":\"3193542-3\",\"registrationDate\":\"2021-02-23\",\"source\":\"3\"},\"euId\":{\"value\":\"FIFPRO.3193542-3\",\"source\":\"1\"},\"names\":[{\"name\":\"Kyndryl Finland Oy\",\"type\":\"1\",\"registrationDate\":\"2021-05-11\",\"version\":1,\"source\":\"1\"},{\"name\":\"IBM Ocean Finland Oy\",\"type\":\"1\",\"registrationDate\":\"2021-03-26\",\"endDate\":\"2021-05-11\",\"version\":2,\"source\":\"1\"}],\"mainBusinessLine\":{\"type\":\"46510\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Partihandel med datorer och kringutrustning samt programvara\"},{\"languageCode\":\"1\",\"description\":\"Tietokoneiden, oheislaitteiden ja ohjelmistojen tukkukauppa\"},{\"languageCode\":\"3\",\"description\":\"Wholesale of computers, computer peripheral equipment and software\"}],\"typeCodeSet\":\"TOIMI3\",\"registrationDate\":\"2021-02-02\",\"source\":\"2\"},\"companyForms\":[{\"type\":\"16\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Aktiebolag\"},{\"languageCode\":\"3\",\"description\":\"Limited company\"},{\"languageCode\":\"1\",\"description\":\"Osakeyhtiö\"}],\"registrationDate\":\"2021-03-26\",\"version\":1,\"source\":\"1\"}],\"companySituations\":[],\"registeredEntries\":[{\"type\":\"0\",\"descriptions\":[{\"languageCode\":\"2\",\"description\":\"Oregistrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisteröimätön\"},{\"languageCode\":\"3\",\"description\":\"Unregistered\"}],\"registrationDate\":\"2021-02-23\",\"endDate\":\"2021-03-25\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2021-03-26\",\"register\":\"1\",\"authority\":\"2\"},{\"type\":\"1\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2021-03-26\",\"register\":\"4\",\"authority\":\"1\"},{\"type\":\"55\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2021-06-01\",\"register\":\"5\",\"authority\":\"1\"},{\"type\":\"80\",\"descriptions\":[{\"languageCode\":\"1\",\"description\":\"Liiketoiminnasta arvonlisäverovelvollinen\"},{\"languageCode\":\"2\",\"description\":\"Momsskyldig för rörelseverksamhet\"},{\"languageCode\":\"3\",\"description\":\"VAT-liable for business activity\"}],\"registrationDate\":\"2021-06-01\",\"register\":\"6\",\"authority\":\"1\"},{\"type\":\"41\",\"descriptions\":[{\"languageCode\":\"3\",\"description\":\"Registered\"},{\"languageCode\":\"2\",\"description\":\"Registrerad\"},{\"languageCode\":\"1\",\"description\":\"Rekisterissä\"}],\"registrationDate\":\"2021-06-01\",\"register\":\"7\",\"authority\":\"1\"}],\"addresses\":[{\"type\":1,\"street\":\"Linnoitustie\",\"postCode\":\"02600\",\"postOffices\":[{\"city\":\"ESBO\",\"languageCode\":\"2\",\"municipalityCode\":\"049\"},{\"city\":\"ESPOO\",\"languageCode\":\"1\",\"municipalityCode\":\"049\"}],\"buildingNumber\":\"9\",\"entrance\":\"\",\"apartmentNumber\":\"\",\"apartmentIdSuffix\":\"\",\"co\":\"\",\"registrationDate\":\"2023-09-01\",\"source\":\"0\"},{\"type\":2,\"street\":\"\",\"postCode\":\"00331\",\"postOffices\":[{\"city\":\"HELSINGFORS\",\"languageCode\":\"2\",\"municipalityCode\":\"091\"},{\"city\":\"HELSINKI\",\"languageCode\":\"1\",\"municipalityCode\":\"091\"}],\"postOfficeBox\":\"11\",\"buildingNumber\":\"\",\"entrance\":\"\",\"apartmentNumber\":\"\",\"apartmentIdSuffix\":\"\",\"co\":\"\",\"registrationDate\":\"2022-02-11\",\"source\":\"0\"}],\"tradeRegisterStatus\":\"1\",\"status\":\"2\",\"registrationDate\":\"2021-03-26\",\"lastModified\":\"2024-02-02 12:48:50\"}]}",
+      "metadata": "{\"entityMappingsMetaDatas\":[{\"uiId\":1,\"cobiPathsRelations\":[{\"srcColumnPath\":\"companies/*/businessId/value\",\"dstColumnPath\":\"companies.[*].businessId.value\",\"jsonPath\":\"companies/0/businessId/value\"},{\"srcColumnPath\":\"totalResults\",\"dstColumnPath\":\"totalResults\",\"jsonPath\":\"totalResults\"}],\"isShowNoneMappingFields\":false,\"isPolymorphicList\":false}]}"
+    },
+    {
+      "id": "7e93e7d0-58d7-11ef-82bb-1e5f513defed",
+      "name": "empty_mapping",
+      "lastUpdated": 1729009310590,
+      "dataType": "JSON",
+      "description": "",
+      "entityMappings": [
+        {
+          "id": {
+            "id": "7e8c1fa0-58d7-11ef-82bb-1e5f513defed"
+          },
+          "name": "empty_mapping",
+          "entityClass": "com.cyoda.plugins.tasks.model.AlertTask",
+          "entityRelationConfigs": [
+            {
+              "srcRelativeRootPath": "root:/"
+            }
+          ],
+          "columns": [],
+          "functionalMappings": [],
+          "columnPathsForUniqueCheck": [],
+          "metadata": [],
+          "cobiCoreMetadata": [],
+          "script": {
+            "body": "",
+            "inputSrcPaths": [],
+            "inputMetaPaths": [],
+            "reusableScripts": []
+          },
+          "entityFilter": {
+            "@bean": "com.cyoda.core.conditions.GroupCondition",
+            "operator": "AND",
+            "conditions": []
+          }
+        }
+      ],
+      "sampleContent": "{}",
+      "metadata": "{\"entityMappingsMetaDatas\":[{\"uiId\":1,\"cobiPathsRelations\":[],\"isShowNoneMappingFields\":true,\"isPolymorphicList\":false}]}"
+    }
+  ]
+}

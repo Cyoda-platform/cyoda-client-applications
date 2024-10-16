@@ -1,0 +1,13 @@
+{
+  "data_source_operations": [
+    {
+      "operation": "GetCompanies",
+      "request_fields": {
+        "name": "IBM"
+      },
+      "clientData": {
+      }
+    }
+  ],
+  "datasource_id": "1cbe6722-8bec-11ef-bfbd-8a55deb60b8a"
+}
