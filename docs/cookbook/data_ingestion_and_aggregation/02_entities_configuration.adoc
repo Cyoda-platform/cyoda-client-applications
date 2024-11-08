@@ -1,0 +1,34 @@
+= Common Cyoda Client Project Structure
+
+== 1. What is the common Cyoda client project structure?
+
+The typical project structure for a Cyoda client application looks like this:
+
+[source]
+----
+common/
+entity/workflow
+repository/
+service/
+
+----
+
+== 2. What is the `common` module?
+
+The `common` module contains the necessary code to integrate the application with Cyoda. This module ensures compatibility with the Cyoda platform and includes reusable utilities and integration logic.
+
+Cyoda is **CRUD repository compatible**, which means the client application does not need to be tightly bound to the Cyoda API. Instead, development should be done at the CRUD repository level, allowing for flexibility and modularity.
+
+In summary, the `common` module is essential for integration but does not require modification by the client.
+
+== 3. What is the `entity` module?
+
+The `entity` module is where you define your **entity schema** and configure the entity's workflow. This module represents the core data models that will be used throughout the application.
+
+== 4. What is the `repository` module?
+
+The `repository` module is where you configure the **data store interface** for your project. This module abstracts interactions with the data layer and should not be tightly coupled to Cyoda. It is designed to remain flexible, allowing for changes in the underlying data store without modifying the application’s core logic.
+
+== 5. What is the `service` module?
+
+The `service` module is responsible for handling interactions between the `repository` and other parts of the application. This is where the business logic resides, managing how data flows through the application and interacts with repositories. You should configure how services interact with the repository here to ensure smooth operations within the business context.

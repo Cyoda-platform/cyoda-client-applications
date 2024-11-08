@@ -88,7 +88,7 @@ def send_get_request(token: str, api_url: str, path: str) -> Optional[requests.R
     }
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an error for bad status codes
+          # Raise an error for bad status codes
         logger.info(f"GET request to {url} successful.")
         return response
     except requests.exceptions.HTTPError as http_err:

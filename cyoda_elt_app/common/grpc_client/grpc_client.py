@@ -185,7 +185,7 @@ async def consume_stream(token):
         call = stub.startStreaming(event_generator(queue))
 
         async for response in call:
-            logger.debug(f"Received response: {response}")
+            logger.info(f"Received response: {response}")
 
             if response.type == GREET_EVENT_TYPE:
                 handle_greet_event()
