@@ -1,0 +1,14 @@
+[
+  {
+    "can_proceed": "false",
+    "questions_to_ask": "Could you elaborate on..."
+  },
+  {
+    "entities": [
+      {
+        "entity_name": "some name here",
+        "entity_workflow": "None -> .... (or return empty if workflow is not necessary)"
+      }
+    ]
+  }
+]

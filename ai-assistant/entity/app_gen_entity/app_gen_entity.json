@@ -1,0 +1,15 @@
+{
+  "next_transition": "false",
+  "transitions": [
+      {
+        "name": "gather_requirement",
+        "iteration": 0,
+        "count": 3,
+        "question_to_user": "Hello, what application would you like to build?",
+        "user_answer": "",
+        "prompt": "The user wants to build the following application: {}, do you have enough information to outline entities and workflows? Return answer in json format {{ \"can_proceed\": \"false\", \"questions_to_ask\": \"Could you elaborate on...\" }}. questions_to_ask are empty if you are ready to proceed",
+        "result": "",
+        "prev_transition_index": 0
+      }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+  "transitions": {
+    "process_business_model": [
+      {
+        "name": "process_business_model",
+        "count": 0,
+        "question_to_user": "What is the business domain of the application?",
+        "user_answer": "",
+        "prompt": "Analyze how cyoda can work for the user business domain: {}",
+        "result": ""
+      }
+    ],
+    "process_requirement": [
+      {
+        "name": "process_requirement",
+        "count": 2,
+        "question_to_user": "What is the business requirement of the application?",
+        "user_answer": "",
+        "prompt": "Analyze this business requirement {}, what are the main design patterns involved? Do you have enough information to decide on the required entities and workflows (do not ask any questions about connections and mappings first (data integration))?. If not, return an additional question. Start a question with: Sorry, but i need a bit more detail. If you dont start your answer this way, it will be considered that you have enough information to go on. If the user allows you to decide yourself outline the options for the user and let them choose. If the user doesn't care - choose best effort scenario",
+        "result": ""
+      }
+    ],
+    "outline_entities_workflows": [
+      {
+        "name": "outline_entities_workflows",
+        "count": 1,
+        "question_to_user": "Ok, i am ready to start generating entities. Would you have any recommendations before i proceed?",
+        "user_answer": "",
+        "prompt": "Please, point out the minimum number of the entities for the requirement. Maximum number of entities is 4. Maximum 3 business entity and one supplementary (like a job). Think of a workflow for them. Show your design to the user and ask to validate.",
+        "result": ""
+      }
+    ],
+    "process_entities": [
+      {
+        "name": "process_entities",
+        "count": 0,
+        "question_to_user": "Starting generating entities",
+        "user_answer": "",
+        "prompt": "How many entities have we outlined? Return only number.",
+        "result": ""
+      }
+    ]
+  }
+}

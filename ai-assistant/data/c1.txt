@@ -1,0 +1,328 @@
+##chat asks
+print "Hello, what application would you like to build?"
+##you answer
+print "I want to build an application that analyses household energy consumption and
+gives a recommendation how to save up electricity"
+##chat asks
+print "Hello, could you please elaborate on these questions: Could you clarify what specific data will be collected for energy consumption analysis and what type of recommendations you are seeking?"
+##you answer
+print "I want to submit csv file with data in the following format:
+Fecha Hora;Energia Activa Entrante kWh;Tipo de medida;Energia Reactiva - Q1 kVArh;Tipo de medida
+04-11-2024 00:00:00;0,22;Real;0;Real
+04-11-2024 01:00:00;0,23;Real;0,01;Real
+04-11-2024 02:00:00;0,24;Real;0,01;Real
+04-11-2024 03:00:00;0,14;Real;0,01;Real
+04-11-2024 04:00:00;0,11;Real;0,01;Real
+04-11-2024 05:00:00;0,07;Real;0;Real
+04-11-2024 06:00:00;0,07;Real;0;Real
+
+and then AI needs to analyse it and give recommendations"
+##chat asks
+print "{"entities": [{"entity_name": "energy_consumption_data", "entity_workflow": "None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()"}, {"entity_name": "recommendation", "entity_workflow": "None -> create_recommendation() -> send_to_user()"}]}. Can we proceed with this design?"
+##you answer
+print "yes"
+##chat asks
+print "Let's proceed"
+##chat asks
+print "Would you like to specify the details for this entity: energy_consumption_data."
+##you answer
+print "it should reflect this file data
+
+Fecha Hora;Energia Activa Entrante kWh;Tipo de medida;Energia Reactiva - Q1 kVArh;Tipo de medida
+04-11-2024 00:00:00;0,22;Real;0;Real
+04-11-2024 01:00:00;0,23;Real;0,01;Real
+04-11-2024 02:00:00;0,24;Real;0,01;Real
+04-11-2024 03:00:00;0,14;Real;0,01;Real
+04-11-2024 04:00:00;0,11;Real;0,01;Real
+04-11-2024 05:00:00;0,07;Real;0;Real
+04-11-2024 06:00:00;0,07;Real;0;Real"
+##chat asks
+print "{"energy_consumption_data": {"data_entries": [{"timestamp": "2024-11-04T00:00:00", "active_energy_kWh": 0.22, "reactive_energy_kVArh": 0.0}, {"timestamp": "2024-11-04T01:00:00", "active_energy_kWh": 0.23, "reactive_energy_kVArh": 0.01}, {"timestamp": "2024-11-04T02:00:00", "active_energy_kWh": 0.24, "reactive_energy_kVArh": 0.01}, {"timestamp": "2024-11-04T03:00:00", "active_energy_kWh": 0.14, "reactive_energy_kVArh": 0.01}, {"timestamp": "2024-11-04T04:00:00", "active_energy_kWh": 0.11, "reactive_energy_kVArh": 0.01}, {"timestamp": "2024-11-04T05:00:00", "active_energy_kWh": 0.07, "reactive_energy_kVArh": 0.0}, {"timestamp": "2024-11-04T06:00:00", "active_energy_kWh": 0.07, "reactive_energy_kVArh": 0.0}]}}"
+##chat asks
+print "Would you like to specify the details for this entity: energy_consumption_data."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "yes"
+##chat asks
+print "Would you like to specify the details for this entity: recommendation."
+##you answer
+print "what would you suggest?"
+##chat asks
+print "{"recommendation": {"recommendation_id": "rec_001", "user_id": "user_123", "energy_saving_tips": ["Consider using energy-efficient appliances.", "Schedule high-energy tasks during off-peak hours.", "Seal windows and doors to improve insulation.", "Unplug devices when not in use.", "Install a programmable thermostat."], "analysis_summary": "Your energy consumption during peak hours is higher than average. Implementing the above tips can help reduce your electricity bill.", "timestamp": "2024-11-04T07:00:00"}}"
+##chat asks
+print "Would you like to specify the details for this entity: recommendation."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "add peak hours list"
+##chat asks
+print "{"recommendation": {"recommendation_id": "rec_001", "user_id": "user_123", "energy_saving_tips": ["Consider using energy-efficient appliances.", "Schedule high-energy tasks during off-peak hours.", "Seal windows and doors to improve insulation.", "Unplug devices when not in use.", "Install a programmable thermostat."], "peak_hours": ["2024-11-04T00:00:00 - 2024-11-04T06:00:00", "2024-11-04T18:00:00 - 2024-11-04T22:00:00"], "analysis_summary": "Your energy consumption during peak hours is higher than average. Implementing the above tips can help reduce your electricity bill.", "timestamp": "2024-11-04T07:00:00"}}"
+##chat asks
+print "Would you like to specify the details for this entity: recommendation."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "also, we'd like to use this analytics to identify the highest consumers: cooker individually consumes electricity between 8am till 11 am, laptop from 11pm till 4am, fridge from 4am till 8am. Need to check the statistics for this hours and identify how much electricity spent there  "
+##chat asks
+print "{"recommendation": {"recommendation_id": "rec_001", "user_id": "user_123", "energy_saving_tips": ["Consider using energy-efficient appliances.", "Schedule high-energy tasks during off-peak hours.", "Seal windows and doors to improve insulation.", "Unplug devices when not in use.", "Install a programmable thermostat."], "peak_hours": ["2024-11-04T00:00:00 - 2024-11-04T06:00:00", "2024-11-04T18:00:00 - 2024-11-04T22:00:00"], "electricity_consumption_by_device": {"cooker": {"consumption_kWh": 0.5, "active_hours": "08:00 - 11:00"}, "laptop": {"consumption_kWh": 1.2, "active_hours": "23:00 - 04:00"}, "fridge": {"consumption_kWh": 2.0, "active_hours": "04:00 - 08:00"}}, "analysis_summary": "The highest electricity consumption is observed from the fridge during early morning hours. Consider using the cooker during non-peak times to save energy.", "timestamp": "2024-11-04T07:00:00"}}"
+##chat asks
+print "Would you like to specify the details for this entity: recommendation."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "yes"
+##chat asks
+print "Let's proceed"
+##chat asks
+print "Would you like to specify any details for this entity energy_consumption_data workflow: None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()."
+##you answer
+print "None  -> analyze_energy_consumption()
+we need 1 transition here
+receive_csv_file() - no logic - i don't think we need this step
+analyze_energy_consumption - please implement logic to analyse data here and to save recommendation entity"
+##chat asks
+print "```python
+class energy_consumption_data(Entity):
+def workflow(self):
+pass
+
+def receive_csv_file(self, meta, data):
+pass
+
+def analyze_energy_consumption(self, meta, data):
+# Implement logic to analyze energy consumption data
+# Example analysis could include calculating total consumption during peak hours
+# and identifying high-consumption devices.
+
+# After analysis, save the recommendation entity
+recommendation = recommendation()
+recommendation.generate_recommendations(data)  # Pass analyzed data to generate recommendations
+
+def generate_recommendations(self, data):
+# Logic to create recommendations based on the analyzed data
+pass
+```"
+##chat asks
+print "Would you like to specify any details for this entity energy_consumption_data workflow: None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "only analyze_energy_consumption is required and you need to fully implement this function"
+##chat asks
+print "```python
+class energy_consumption_data(Entity):
+def workflow(self):
+pass
+
+def receive_csv_file(self, meta, data):
+# No logic required for this step
+pass
+
+def analyze_energy_consumption(self, meta, data):
+# Logic to analyze energy consumption data
+total_active_energy = 0
+total_reactive_energy = 0
+
+# Analyzing the data to calculate total electricity consumed
+for entry in data['data_entries']:
+total_active_energy += entry['active_energy_kWh']
+total_reactive_energy += entry['reactive_energy_kVArh']
+
+# Identify peak consumption times
+self.identify_peak_consumption_times(total_active_energy)
+
+def identify_peak_consumption_times(self, total_active_energy):
+# Logic to check statistics during peak hours
+# Implementation goes here
+pass
+```"
+##chat asks
+print "Would you like to specify any details for this entity energy_consumption_data workflow: None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "can you fully implement the function?
+def analyze_energy_consumption(self, meta, data):
+# Logic to analyze energy consumption data
+total_active_energy = 0
+total_reactive_energy = 0
+
+# Analyzing the data to calculate total electricity consumed
+for entry in data['data_entries']:
+total_active_energy += entry['active_energy_kWh']
+total_reactive_energy += entry['reactive_energy_kVArh']
+
+# Identify peak consumption times
+self.identify_peak_consumption_times(total_active_energy)
+
+def identify_peak_consumption_times(self, total_active_energy):
+# Logic to check statistics during peak hours
+# Implementation goes here
+pass
+
+write all the logic"
+##chat asks
+print "```python
+class energy_consumption_data(Entity):
+def workflow(self):
+pass
+
+def receive_csv_file(self, meta, data):
+# No logic required for this step
+pass
+
+def analyze_energy_consumption(self, meta, data):
+# Logic to analyze energy consumption data
+total_active_energy = 0
+consumption_by_hour = {
+"08:00 - 11:00": 0,
+"23:00 - 04:00": 0,
+"04:00 - 08:00": 0
+}
+
+# Analyzing the data to calculate total electricity consumed
+for entry in data['data_entries']:
+total_active_energy += entry['active_energy_kWh']
+timestamp = entry['timestamp']
+hour = timestamp.split("T")[1][:5]  # Extract hour
+
+# Categorize consumption based on active hours
+if "08:00" <= hour <= "11:00":
+consumption_by_hour["08:00 - 11:00"] += entry['active_energy_kWh']
+elif "23:00" <= hour <= "04:00":
+consumption_by_hour["23:00 - 04:00"] += entry['active_energy_kWh']
+elif "04:00" <= hour <= "08:00":
+consumption_by_hour["04:00 - 08:00"] += entry['active_energy_kWh']
+
+# Generate recommendations based on analysis
+self.generate_recommendations(consumption_by_hour)
+
+def generate_recommendations(self, consumption_by_hour):
+# Logic to create recommendations based on consumption analysis
+recommendation = recommendation()
+recommendation.energy_saving_tips = []
+
+# Analyze consumption data
+for time_slot, consumption in consumption_by_hour.items():
+if consumption > threshold:  # Define a threshold value
+recommendation.energy_saving_tips.append(f"Reduce usage during {time_slot} to save energy.")
+
+# Save the recommendation entity
+recommendation.save()
+```"
+##chat asks
+print "Would you like to specify any details for this entity energy_consumption_data workflow: None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "this doesn't look right
+
+recommendation = recommendation()
+recommendation.energy_saving_tips = []
+
+# Analyze consumption data
+for time_slot, consumption in consumption_by_hour.items():
+if consumption > threshold:  # Define a threshold value
+recommendation.energy_saving_tips.append(f"Reduce usage during {time_slot} to save energy.")
+
+# Save the recommendation entity
+recommendation.save()
+
+what s recommendation()?
+use cyoda service to save the data when it is ready"
+##chat asks
+print "```python
+class energy_consumption_data(Entity):
+def workflow(self):
+pass
+
+def receive_csv_file(self, meta, data):
+# No logic required for this step
+pass
+
+def analyze_energy_consumption(self, meta, data):
+# Logic to analyze energy consumption data
+total_active_energy = 0
+consumption_by_hour = {
+"08:00 - 11:00": 0,
+"23:00 - 04:00": 0,
+"04:00 - 08:00": 0
+}
+
+# Analyzing the data to calculate total electricity consumed
+for entry in data['data_entries']:
+total_active_energy += entry['active_energy_kWh']
+timestamp = entry['timestamp']
+hour = timestamp.split("T")[1][:5]  # Extract hour
+
+# Categorize consumption based on active hours
+if "08:00" <= hour <= "11:00":
+consumption_by_hour["08:00 - 11:00"] += entry['active_energy_kWh']
+elif "23:00" <= hour <= "04:00":
+consumption_by_hour["23:00 - 04:00"] += entry['active_energy_kWh']
+elif "04:00" <= hour <= "08:00":
+consumption_by_hour["04:00 - 08:00"] += entry['active_energy_kWh']
+
+# Generate recommendations based on analysis
+self.generate_recommendations(consumption_by_hour)
+
+def generate_recommendations(self, consumption_by_hour):
+# Logic to create recommendations based on consumption analysis
+recommendations = []
+threshold = 1.0  # Example threshold value
+
+# Analyze consumption data
+for time_slot, consumption in consumption_by_hour.items():
+if consumption > threshold:
+recommendations.append(f"Reduce usage during {time_slot} to save energy.")
+
+# Save recommendations through a service
+self.save_recommendations(recommendations)
+
+def save_recommendations(self, recommendations):
+# Logic to save recommendations using a service
+recommendation_data = {
+"recommendations": recommendations
+}
+self.call_service("recommendation_service.save_recommendations", recommendation_data)
+```"
+##chat asks
+print "Would you like to specify any details for this entity energy_consumption_data workflow: None -> receive_csv_file() -> analyze_energy_consumption() -> generate_recommendations()."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "yes"
+##chat asks
+print "Would you like to specify any details for this entity recommendation workflow: None -> create_recommendation() -> send_to_user()."
+##you answer
+print "i think the workflow would be None -> send_to_user()
+"
+##chat asks
+print "```python
+class recommendation(Entity):
+def workflow(self):
+pass
+
+def send_to_user(self, meta, data):
+# Logic to send recommendations to the user
+user_contact_info = data.get("user_contact_info")
+recommendations = data.get("recommendations")
+
+# Send the recommendations via email or SMS
+self.send_message(user_contact_info, recommendations)
+
+def send_message(self, user_contact_info, recommendations):
+# Implementation of sending message (email/SMS)
+pass
+```"
+##chat asks
+print "Would you like to specify any details for this entity recommendation workflow: None -> create_recommendation() -> send_to_user()."
+##chat asks
+print "If you are ready to proceed to the next step answer 'yes'."
+##you answer
+print "yes"
+##chat asks
+print "Let's proceed"
+##chat asks
+print "Finished workflow"

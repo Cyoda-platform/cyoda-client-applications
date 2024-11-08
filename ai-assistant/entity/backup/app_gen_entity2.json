@@ -1,0 +1,24 @@
+{
+  "transitions": {
+    "process_requirement": [
+      {
+        "name": "process_requirement",
+        "count": 2,
+        "question_to_user": "What is the business requirement of the application?",
+        "user_answer": "",
+        "prompt": "{}",
+        "result": ""
+      }
+    ],
+    "outline_entities_workflows": [
+      {
+        "name": "outline_entities_workflows",
+        "count": 1,
+        "question_to_user": "Ok, i am ready to start generating entities. Would you have any recommendations before i proceed?",
+        "user_answer": "",
+        "prompt": "transform \"{}\" into json of the following structure: { \"entities\": [ { \"name\": \"entity_name\", \"workflow\": \"None-> ...(if any)\" } ] }. Only do the transformation and return json, do not add/improve anything",
+        "result": ""
+      }
+    ]
+  }
+}
