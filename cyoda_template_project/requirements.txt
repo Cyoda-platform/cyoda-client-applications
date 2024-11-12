@@ -1,6 +1,4 @@
-Flask
-flask-cors
-
+Quart==0.19.6
 jsonschema==4.23.0
 #grpc
 grpcio==1.64.1
@@ -8,3 +6,5 @@ grpcio-tools==1.64.1
 protobuf==5.27.3
 
 requests==2.32.3
+#pandas==2.2.3
+#scikit-learn==1.5.2
