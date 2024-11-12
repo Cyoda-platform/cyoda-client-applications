@@ -1,0 +1,3 @@
+I want to build an application that analyses household energy consumption and
+ gives a recommendation how to save up electricity
+also, we'd like to use this analytics to identify the highest consumers: cooker individually consumes electricity between 8am till 11 am, laptop from 11pm till 4am, fridge from 4am till 8am. Need to check the statistics for this hours and identify how much electricity spent there

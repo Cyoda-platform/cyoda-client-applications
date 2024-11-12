@@ -1,2 +1,0 @@
-I want to build an application that analyses household energy consumption and
- gives a recommendation how to save up electricity
