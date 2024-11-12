@@ -62,17 +62,112 @@ state_machine_json = {
             "description": "For each entity, generate the required data and finalize the workflow.",
             "transitions": [
                 {
-                    "decision": "Enough information to generate worflows?",
+                    "decision": "Enough information to generate workflows?",
                     "yes": {
-                        "to": "finish_workflow"
+                        "to": "generate_logic"
                     },
                     "no": {
                         "to": "generate_workflows"
                     }
                 }
             ]
-        }
-        ,
+        },
+        {
+            "name": "generate_logic",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "decision": "Enough information to generate logic?",
+                    "yes": {
+                        "to": "generate_requirements"
+                    },
+                    "no": {
+                        "to": "generate_logic"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "generate_api",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "decision": "Enough information to generate logic?",
+                    "yes": {
+                        "to": "generate_requirements"
+                    },
+                    "no": {
+                        "to": "generate_api"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "generate_requirements",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+
+                    "to": "finish_workflow"
+
+                }
+            ]
+        },
+        {
+            "name": "ask_if_generate_ui",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "to": "generate_ui"
+                }
+            ]
+        },
+        {
+            "name": "generate_ui",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "decision": "Enough information to generate logic?",
+                    "yes": {
+                        "to": "generate_tests"
+                    },
+                    "no": {
+                        "to": "generate_ui"
+                    }
+                }
+            ]
+        },
+
+        {
+            "name": "generate_tests",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "decision": "Enough information to generate logic?",
+                    "yes": {
+                        "to": "generate_readme"
+                    },
+                    "no": {
+                        "to": "generate_tests"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "generate_readme",
+            "description": "For each entity, generate the required logic.",
+            "transitions": [
+                {
+                    "decision": "Enough information to generate logic?",
+                    "yes": {
+                        "to": "finish_workflow"
+                    },
+                    "no": {
+                        "to": "generate_readme"
+                    }
+                }
+            ]
+        },
         {
             "name": "finish_workflow",
             "description": "For each entity, generate the required data and finalize the workflow.",
@@ -112,5 +207,6 @@ class StateMachine:
 
     def is_final_state(self):
         return not self.current_transition.get("transitions")
+
 
 cyoda_state_machine = StateMachine(state_machine_json)
